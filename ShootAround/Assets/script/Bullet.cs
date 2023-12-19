@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float speed;
     private void Start()
     {
-        Destroy(this, 5f);
+        Destroy(gameObject, 3f);
     }
     void Update()
     {

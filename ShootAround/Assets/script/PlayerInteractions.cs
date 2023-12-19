@@ -20,6 +20,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         
     }
+    //Should clean up this take damage thing dont need to check if alive
     public void takeDamage(int damage)
     {
         currHealth -= damage;
