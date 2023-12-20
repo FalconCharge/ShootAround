@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
+    [SerializeField] private int health;
     [SerializeField] private int damage;
     [SerializeField] private float speed;
     [SerializeField] private float stopDistance;

@@ -29,6 +29,11 @@ public class Spawner : MonoBehaviour
         if(Time.time > timeBTWSpawn)
         {
             timeBTWSpawn = Time.time + StartTimeBTWSpawn;
+            //Decrease the interval between the spawnws
+            if(StartTimeBTWSpawn > 0.40f)
+            {
+                StartTimeBTWSpawn -= 0.02f;
+            }
             spawnEnemy();
         }
     }
