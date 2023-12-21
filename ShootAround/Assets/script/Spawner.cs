@@ -9,11 +9,13 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject[] enemies;
     private float timeBTWSpawn;
 
+    private GameObject player;
     private Transform[] spawnPoints;
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("SpawnPoints");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         spawnPoints = new Transform[spawnPointObjects.Length];
 
@@ -26,16 +28,20 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > timeBTWSpawn)
-        {
-            timeBTWSpawn = Time.time + StartTimeBTWSpawn;
-            //Decrease the interval between the spawnws
-            if(StartTimeBTWSpawn > 0.40f)
+        if(player != null){
+
+            if(Time.time > timeBTWSpawn)
             {
-                StartTimeBTWSpawn -= 0.02f;
+                timeBTWSpawn = Time.time + StartTimeBTWSpawn;
+                //Decrease the interval between the spawnws
+                if(StartTimeBTWSpawn > 0.40f)
+                {
+                    StartTimeBTWSpawn -= 0.02f;
+                }
+                spawnEnemy();
             }
-            spawnEnemy();
         }
+        
     }
     void spawnEnemy()
     {

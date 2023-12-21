@@ -18,39 +18,58 @@ public class BasicEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
-        move();
-        if(canAttack() && !isAttacking)
+        if(getPlayer() != null)
         {
-            StartCoroutine(Attack());
-        }
-        IEnumerator Attack()
-        {
-            isAttacking = true;
-            try
+            move();
+            if(canAttack() && !isAttacking)
             {
-                Transform playerTransform = getPlayer();
-          
-                PlayerInteractions playerInteractions = playerTransform.GetComponent<PlayerInteractions>();
-                    
-                playerInteractions.takeDamage(getDamage());
-
-                Vector2 orgPos = transform.position;
-                Vector2 targetPos = playerTransform.position;
-
-                float percent = 0;
-
-                while (percent < 1)
+                if(getPlayer() != null)
                 {
-                    percent += Time.deltaTime * attackSpeed;
-                    float formula = (-Mathf.Pow(percent, 2) + percent) * 4;
-                    transform.position = Vector2.Lerp(orgPos, targetPos, formula);
-                    yield return null;
-                } 
+                    StartCoroutine(Attack());
+                }
+                
             }
-            finally
+
+            IEnumerator Attack()
             {
-                isAttacking = false; // Reset the flag even if the coroutine is interrupted
+                isAttacking = true;
+                try
+                {
+                    
+                    Transform playerTransform = getPlayer();
+          
+                    PlayerInteractions playerInteractions = playerTransform.GetComponent<PlayerInteractions>();
+                    if(playerInteractions != null)
+                    {
+                        playerInteractions.takeDamage(getDamage());
+                    }
+
+                    Vector2 orgPos = transform.position;
+                    Vector2 targetPos = playerTransform.position;
+
+                    float percent = 0;
+
+                    while (percent < 1)
+                    {
+                        percent += Time.deltaTime * attackSpeed;
+                        float formula = (-Mathf.Pow(percent, 2) + percent) * 4;
+                        transform.position = Vector2.Lerp(orgPos, targetPos, formula);
+                        yield return null;
+                    } 
+                    
+                    
+                }
+                finally
+                {
+                    isAttacking = false; // Reset the flag even if the coroutine is interrupted
+                }
+
             }
+        
+        }
+        else
+        {
+            Debug.Log("The player object is null");
         }
     }
     public void move()

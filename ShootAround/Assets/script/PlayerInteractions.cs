@@ -7,7 +7,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] int currHealth;
     [SerializeField] int maxHealth;
-    private bool isAlive;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,21 +24,11 @@ public class PlayerInteractions : MonoBehaviour
     public void takeDamage(int damage)
     {
         currHealth -= damage;
-        isAlive = checkisAlive();
-        if(!isAlive)
-        {
+        
+        if(currHealth <= 0) {
             Debug.Log("The Player has died");
             Destroy(gameObject);
+            FindObjectOfType<GameManager>().loadGameOver();
         }
-
     }
-    public bool checkisAlive()
-    {
-        if(currHealth > 0) {
-            return true;
-        }
-        return false;
-    }
-
-
 }
